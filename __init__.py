@@ -7,6 +7,7 @@ from cmake_generator.target import (
     HeaderOnlyTarget,
     ImportTarget,
     NewTarget,
+    PythonTarget,
     Target
 )
 

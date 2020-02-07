@@ -1,10 +1,11 @@
 from typing import Dict, List
 
 from cmake_generator.str_cmake_config   import str_cmake_config
-from cmake_generator.str_project        import str_project, Version
-from cmake_generator.str_new_target     import str_new_target
 from cmake_generator.str_import_target  import str_import_target
-from cmake_generator.target             import Target, NewTarget, ImportTarget
+from cmake_generator.str_new_target     import str_new_target
+from cmake_generator.str_project        import str_project, Version
+from cmake_generator.str_python_target  import str_python_target
+from cmake_generator.target             import ImportTarget, NewTarget, PythonTarget, Target
 
 #----------------------------------------------------------------
 class CMakeGenerator:
@@ -33,6 +34,7 @@ class CMakeGenerator:
         dispatcher = {
             NewTarget       : str_new_target,
             ImportTarget    : str_import_target,
+            PythonTarget    : str_python_target
         }
         # we don't write any cmake for header only libraries
         if target.__class__ in dispatcher:

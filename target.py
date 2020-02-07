@@ -67,4 +67,25 @@ class ImportTarget:
         self.subtargets                = subtargets or [ name ]
 
 #----------------------------------------------------------------
-Target = Union[ HeaderOnlyTarget, ImportTarget, NewTarget ]
+class PythonTarget:
+    """
+    A Python targets is basically the same as a NewTarget,
+    but it uses pybind11_add_module instead of add_executable,
+    and it will always be built as a Python module.
+    """
+    def __init__(
+        self,
+        name            : str,
+        src_dir_path    : str,
+        include_dirs: List[ str ]           = None,
+        dependencies    : List[ str ]       = None,
+        properties      : Dict[ str, str ]  = None
+    ):
+        self.name           = name
+        self.src_dir_path   = src_dir_path
+        self.include_dirs   = include_dirs or [ src_dir_path ]
+        self.dependencies   = dependencies  or []
+        self.properties     = properties    or {}
+
+#----------------------------------------------------------------
+Target = Union[ HeaderOnlyTarget, ImportTarget, NewTarget, PythonTarget ]
