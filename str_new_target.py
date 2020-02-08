@@ -83,7 +83,8 @@ def _str_add_target(
         TargetType.Executable           : _str_add_target_executable,
         TargetType.HeaderOnlyLibrary    : _str_add_target_header_only_library,
         TargetType.SharedLibrary        : _str_add_target_shared_library,
-        TargetType.StaticLibrary        : _str_add_target_static_library
+        TargetType.StaticLibrary        : _str_add_target_static_library,
+        TargetType.PythonModule         : _str_add_target_python_module
     }[ target.target_type ]( target.name, source_variable_name )
 
 #----------------------------------------------------------------
@@ -133,6 +134,16 @@ def _str_add_target_static_library(
 ) -> str:
     add_target_string_template = """
 add_library( {SHAKE_CMAKE_GENERATOR_target_name} STATIC ${SHAKE_CMAKE_GENERATOR_source_variable_name} )
+"""
+    return _str_generic_add_target( add_target_string_template, target_name, source_variable_name )
+
+#----------------------------------------------------------------
+def _str_add_target_python_module(
+    target_name             : str,
+    source_variable_name    : str
+) -> str:
+    add_target_string_template = """
+pybind11_add_module( {SHAKE_CMAKE_GENERATOR_target_name} MODULE ${SHAKE_CMAKE_GENERATOR_source_variable_name} )
 """
     return _str_generic_add_target( add_target_string_template, target_name, source_variable_name )
 

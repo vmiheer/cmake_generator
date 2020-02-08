@@ -6,3 +6,4 @@ class TargetType(Enum):
     HeaderOnlyLibrary   = auto()
     SharedLibrary       = auto()
     StaticLibrary       = auto()
+    PythonModule        = auto()
